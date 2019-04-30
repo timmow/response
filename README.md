@@ -127,8 +127,9 @@ In the Event Subscriptions page we need to configure the following:
 
 ### Configure interactive components
 
-- Enable interactive component in https://api.slack.com/apps/AEP90US9X/interactive-messages
-- add the `https://<public-url>/slack/action`
+In the Interactive Components page we need to:
+- enable it
+- configure the URL:`https://<public-url>/slack/action`
 
 ### Bot Users
 
