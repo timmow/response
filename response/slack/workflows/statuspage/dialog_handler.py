@@ -1,10 +1,10 @@
 import json
 
-from slack.workflows.statuspage.connections import get_status_page_conn
+from response.slack.workflows.statuspage.connections import get_status_page_conn
 
-from slack.models import Incident
-from core.models import IncidentExtension
-from slack.slack_utils import send_ephemeral_message
+from response.slack.models import Incident
+from response.core.models import IncidentExtension
+from response.slack.slack_utils import send_ephemeral_message
 
 
 def handle_status_page_update(user_id: str, channel_id: str, submission: json, response_url: str, state: json):

@@ -2,7 +2,7 @@
 
 import django.db.models.deletion
 from django.db import migrations, models
-from slack.slack_utils import get_user_profile
+from response.slack.slack_utils import get_user_profile
 from django.db.models import F
 
 

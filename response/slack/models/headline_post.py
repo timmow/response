@@ -3,11 +3,11 @@ from django.db import models
 from django.urls import reverse
 from urllib.parse import urljoin
 
-from core.models.incident import Incident
-from slack.models.comms_channel import CommsChannel
+from response.core.models.incident import Incident
+from response.slack.models.comms_channel import CommsChannel
 
-from slack.block_kit import *
-from slack.slack_utils import user_reference, channel_reference
+from response.slack.block_kit import *
+from response.slack.slack_utils import user_reference, channel_reference
 
 
 class HeadlinePostManager(models.Manager):

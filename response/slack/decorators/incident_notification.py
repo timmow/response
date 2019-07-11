@@ -4,8 +4,8 @@ import logging
 
 from datetime import datetime
 
-from core.models import Incident
-from slack.models import CommsChannel, Notification
+from response.core.models import Incident
+from response.slack.models import CommsChannel, Notification
 
 logger = logging.getLogger(__name__)
 

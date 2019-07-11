@@ -1,8 +1,8 @@
 import logging
 
-from core.models import Incident
-from slack.models import CommsChannel
-from slack.slack_utils import add_reaction, remove_reaction, send_ephemeral_message, send_message, SlackError
+from response.core.models import Incident
+from response.slack.models import CommsChannel
+from response.slack.slack_utils import add_reaction, remove_reaction, send_ephemeral_message, send_message, SlackError
 
 logger = logging.getLogger(__name__)
 

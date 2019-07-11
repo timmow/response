@@ -1,11 +1,11 @@
 import requests
-import slack.dialog_builder as dialog_bld
+import response.slack.dialog_builder as dialog_bld
 
-from slack.workflows.statuspage.connections import get_status_page_conn
+from response.slack.workflows.statuspage.connections import get_status_page_conn
 
-from slack.decorators import ActionContext
-from core.models import IncidentExtension
-from slack.block_kit import Text
+from response.slack.decorators import ActionContext
+from response.core.models import IncidentExtension
+from response.slack.block_kit import Text
 
 OPEN_STATUS_PAGE_DIALOG = 'open-status-page-dialog'
 STATUS_PAGE_UPDATE = 'status-page-update'

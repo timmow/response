@@ -3,17 +3,17 @@ from django.conf import settings
 
 
 class SlackConfig(AppConfig):
-    name = 'slack'
+    name = 'response.slack'
 
     def ready(self):
-        import slack.settings
-        import slack.signals
-        import slack.action_handlers
-        import slack.event_handlers
-        import slack.incident_commands
-        import slack.keyword_handlers
-        import slack.incident_notifications
-        import slack.dialog_handlers
-        import slack.workflows
+        import response.slack.settings
+        import response.slack.signals
+        import response.slack.action_handlers
+        import response.slack.event_handlers
+        import response.slack.incident_commands
+        import response.slack.keyword_handlers
+        import response.slack.incident_notifications
+        import response.slack.dialog_handlers
+        import response.slack.workflows
         if settings.PAGERDUTY_ENABLED:
-            import slack.workflows.pagerduty
+            import response.slack.workflows.pagerduty

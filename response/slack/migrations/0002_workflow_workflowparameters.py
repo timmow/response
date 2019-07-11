@@ -3,7 +3,7 @@
 from django.db import migrations, models
 import django.db.models.deletion
 import django.db.models.fields
-import slack.models.workflow
+import response.slack.models.workflow
 
 
 class Migration(migrations.Migration):

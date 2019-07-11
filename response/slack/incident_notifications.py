@@ -1,6 +1,6 @@
-from core.models import Incident
-from slack.models import CommsChannel
-from slack .decorators import recurring_notification, single_notification
+from response.core.models import Incident
+from response.slack.models import CommsChannel
+from response.slack .decorators import recurring_notification, single_notification
 
 
 @recurring_notification(interval_mins=5, max_notifications=5)

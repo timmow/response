@@ -1,10 +1,10 @@
 import json
 import re
 
-from core.models.incident import Incident
-from slack.models import HeadlinePost, CommsChannel, UserStats, PinnedMessage
+from response.core.models.incident import Incident
+from response.slack.models import HeadlinePost, CommsChannel, UserStats, PinnedMessage
 
-from slack.decorators import slack_event, handle_incident_command, handle_keywords
+from response.slack.decorators import slack_event, handle_incident_command, handle_keywords
 
 
 def decode_app_mention(payload):

@@ -1,8 +1,8 @@
-from slack.workflows.statuspage.constants import *
+from response.slack.workflows.statuspage.constants import *
 
-from core.models import Incident
-from slack.block_kit import Message, Button, Section, Actions, Text
-from slack.models import CommsChannel
+from response.core.models import Incident
+from response.slack.block_kit import Message, Button, Section, Actions, Text
+from response.slack.models import CommsChannel
 
 
 def handle_statuspage(incident: Incident, user_id: str, message: str):

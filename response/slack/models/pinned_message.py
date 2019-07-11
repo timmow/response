@@ -1,8 +1,8 @@
 from datetime import datetime
 from django.db import models
 
-from slack.slack_utils import get_user_profile, GetOrCreateSlackExternalUser
-from core.models import Incident, ExternalUser
+from response.slack.slack_utils import get_user_profile, GetOrCreateSlackExternalUser
+from response.core.models import Incident, ExternalUser
 
 
 class PinnedMessageManager(models.Manager):

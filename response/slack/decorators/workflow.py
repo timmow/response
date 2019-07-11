@@ -5,8 +5,8 @@ from django.db.models.signals import post_save
 from django.db.utils import ProgrammingError
 from django.dispatch import receiver
 
-from slack.apps import SlackConfig
-from slack.models import Workflow, WorkflowParameters, CommsChannel, workflow_post_save
+from response.slack.apps import SlackConfig
+from response.slack.models import Workflow, WorkflowParameters, CommsChannel, workflow_post_save
 
 RESPONSE_WORKFLOWS = {}
 

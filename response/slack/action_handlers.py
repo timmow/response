@@ -2,14 +2,14 @@ import json
 from datetime import datetime
 
 from django.conf import settings
-from core.models.incident import Incident
+from response.core.models.incident import Incident
 
-from slack.settings import INCIDENT_EDIT_DIALOG
-from slack.dialog_builder import Dialog, Text, TextArea, SelectWithOptions, SelectFromUsers
-from slack.models import HeadlinePost, CommsChannel
-from slack.slack_utils import invite_user_to_channel, get_slack_token_owner, leave_channel
+from response.slack.settings import INCIDENT_EDIT_DIALOG
+from response.slack.dialog_builder import Dialog, Text, TextArea, SelectWithOptions, SelectFromUsers
+from response.slack.models import HeadlinePost, CommsChannel
+from response.slack.slack_utils import invite_user_to_channel, get_slack_token_owner, leave_channel
 
-from slack.decorators import action_handler, ActionContext
+from response.slack.decorators import action_handler, ActionContext
 
 import logging
 logger = logging.getLogger(__name__)

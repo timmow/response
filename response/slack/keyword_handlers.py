@@ -1,7 +1,7 @@
-from core.models.incident import Incident
+from response.core.models.incident import Incident
 
-from slack.models import CommsChannel
-from slack.decorators import keyword_handler
+from response.slack.models import CommsChannel
+from response.slack.decorators import keyword_handler
 
 import logging
 logger = logging.getLogger(__name__)

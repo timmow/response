@@ -1,8 +1,8 @@
 from datetime import datetime
 from django.db import models
 
-from core.models import Incident, ExternalUser
-from slack.slack_utils import get_user_profile, GetOrCreateSlackExternalUser
+from response.core.models import Incident, ExternalUser
+from response.slack.slack_utils import get_user_profile, GetOrCreateSlackExternalUser
 
 class UserStats(models.Model):
     user = models.ForeignKey(ExternalUser, on_delete=models.CASCADE, blank=False, null=False)

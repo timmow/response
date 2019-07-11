@@ -1,5 +1,5 @@
 from django.contrib import admin
-from slack.models import HeadlinePost, CommsChannel, Notification, UserStats, PinnedMessage, Workflow, WorkflowAdmin
+from response.slack.models import HeadlinePost, CommsChannel, Notification, UserStats, PinnedMessage, Workflow, WorkflowAdmin
 
 
 # Register your models here.

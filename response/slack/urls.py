@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from django.urls import path
 
-import slack.views as views
+import response.slack.views as views
 
 urlpatterns = [
     path('slash_command', views.slash_command, name='slash_command'),

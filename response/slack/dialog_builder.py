@@ -1,7 +1,7 @@
 from django.conf import settings
 from slackclient import SlackClient
 
-from slack.slack_utils import SlackError
+from response.slack.slack_utils import SlackError
 
 
 slack_token = settings.SLACK_TOKEN

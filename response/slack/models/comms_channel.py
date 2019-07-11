@@ -4,10 +4,10 @@ from django.db import models
 from django.urls import reverse
 from urllib.parse import urljoin
 
-from core.models.incident import Incident
+from response.core.models.incident import Incident
 
-from slack.slack_utils import get_or_create_channel, set_channel_topic, send_message, SlackError, rename_channel
-from slack.block_kit import *
+from response.slack.slack_utils import get_or_create_channel, set_channel_topic, send_message, SlackError, rename_channel
+from response.slack.block_kit import *
 
 import logging
 logger = logging.getLogger(__name__)

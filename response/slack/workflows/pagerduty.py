@@ -1,19 +1,19 @@
 import json
 import after_response
 
-from core.models import Incident
+from response.core.models import Incident
 
 
-from slack.block_kit import Message, Section, Divider, Text, Button
-from slack.dialog_builder import Dialog, Text as DialogText
-from slack.action_handlers import action_handler, ActionContext
-from slack.dialog_handlers import dialog_handler
-from slack.incident_commands import incident_command
-from slack.slack_utils import user_reference
-from slack.models import CommsChannel, HeadlinePost
+from response.slack.block_kit import Message, Section, Divider, Text, Button
+from response.slack.dialog_builder import Dialog, Text as DialogText
+from response.slack.action_handlers import action_handler, ActionContext
+from response.slack.dialog_handlers import dialog_handler
+from response.slack.incident_commands import incident_command
+from response.slack.slack_utils import user_reference
+from response.slack.models import CommsChannel, HeadlinePost
 
-from pagerduty.models import Escalation
-from pagerduty.incident import trigger_incident
+from response.pagerduty.models import Escalation
+from response.pagerduty.incident import trigger_incident
 import pypd
 
 from django.conf import settings

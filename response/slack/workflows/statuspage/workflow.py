@@ -3,18 +3,18 @@ import statuspageio
 import logging
 logger = logging.getLogger(name="statuspage init")
 
-from slack.workflows.statuspage.action_handler import *
-from slack.workflows.statuspage.incident_command import *
-from slack.workflows.statuspage.dialog_handler import *
-from slack.workflows.statuspage.constants import *
+from response.slack.workflows.statuspage.action_handler import *
+from response.slack.workflows.statuspage.incident_command import *
+from response.slack.workflows.statuspage.dialog_handler import *
+from response.slack.workflows.statuspage.constants import *
 
-from slack.workflows.statuspage.connections import set_status_page_conn
+from response.slack.workflows.statuspage.connections import set_status_page_conn
 
-from slack.models import Workflow
-from slack.decorators import incident_command, remove_incident_command
-from slack.decorators import action_handler, remove_action_handler, ActionContext
-from slack.decorators import dialog_handler, remove_dialog_handler
-from slack.decorators.workflow import register_workflow, WorkflowClass
+from response.slack.models import Workflow
+from response.slack.decorators import incident_command, remove_incident_command
+from response.slack.decorators import action_handler, remove_action_handler, ActionContext
+from response.slack.decorators import dialog_handler, remove_dialog_handler
+from response.slack.decorators.workflow import register_workflow, WorkflowClass
 
 
 @register_workflow('statuspage')

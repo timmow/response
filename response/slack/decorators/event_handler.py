@@ -3,8 +3,8 @@ from collections import defaultdict
 
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
-from core.models.incident import Incident
-from slack.models import CommsChannel
+from response.core.models.incident import Incident
+from response.slack.models import CommsChannel
 
 
 logger = logging.getLogger(__name__)
