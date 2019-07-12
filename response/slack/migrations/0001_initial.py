@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('core', '0001_initial'),
+        ('response.core', '0001_initial'),
     ]
 
     operations = [
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('channel_id', models.CharField(max_length=20)),
-                ('incident', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.Incident')),
+                ('incident', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='response.core.Incident')),
             ],
         ),
         migrations.CreateModel(
@@ -26,8 +26,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('message_ts', models.CharField(max_length=20, null=True)),
-                ('comms_channel', models.OneToOneField(null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='slack.CommsChannel')),
-                ('incident', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.Incident')),
+                ('comms_channel', models.OneToOneField(null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='response.slack.CommsChannel')),
+                ('incident', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='response.core.Incident')),
             ],
         ),
         migrations.CreateModel(
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('time', models.DateTimeField()),
                 ('repeat_count', models.IntegerField(default=0)),
                 ('completed', models.BooleanField(default=False)),
-                ('incident', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.Incident')),
+                ('incident', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='response.core.Incident')),
             ],
         ),
         migrations.CreateModel(
@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
                 ('message_ts', models.CharField(max_length=50)),
                 ('text', models.TextField()),
                 ('timestamp', models.DateTimeField()),
-                ('incident', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.Incident')),
+                ('incident', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='response.core.Incident')),
             ],
         ),
         migrations.CreateModel(
@@ -59,7 +59,7 @@ class Migration(migrations.Migration):
                 ('user_id', models.CharField(max_length=50)),
                 ('join_time', models.DateTimeField(null=True)),
                 ('message_count', models.IntegerField(default=0)),
-                ('incident', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.Incident')),
+                ('incident', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='response.core.Incident')),
             ],
         ),
         migrations.AlterUniqueTogether(
