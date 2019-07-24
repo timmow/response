@@ -30,3 +30,12 @@ def remind_close_incident(incident: Incident):
             comms_channel.post_in_channel(":timer_clock: This incident has been running a long time.  Can it be closed now?  Remember to pin important messages in order to create the timeline.")
     except CommsChannel.DoesNotExist:
         pass
+
+@recurring_notification(interval_mins=30, max_notifications=5)
+def remind_to_send_comms(incident: Incident):
+    try:
+        comms_channel = CommsChannel.objects.get(incident=incident)
+        if not incident.lead:
+            comms_channel.post_in_channel("Remember to send out comms")
+    except CommsChannel.DoesNotExist:
+        pass
