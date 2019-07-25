@@ -12,6 +12,7 @@ django-filter==2.1.0
 djangorestframework==3.9.2
 emoji-data-python==1.1.0
 idna==2.8
+jira==2.0.0
 Markdown==3.0.1
 markdown2==2.3.7
 munch==2.3.2

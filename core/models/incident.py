@@ -1,6 +1,8 @@
 from datetime import datetime
 from django.db import models
+from django.conf import settings
 from core.models.user_external import ExternalUser
+from jira import JIRA
 
 class IncidentManager(models.Manager):
     def create_incident(self, report, reporter, report_time, summary=None, impact=None, lead=None, severity=None):
@@ -14,6 +16,11 @@ class IncidentManager(models.Manager):
             lead=lead,
             severity=severity,
         )
+        jira = JIRA(settings.JIRA_SITE, basic_auth=(settings.JIRA_USER, settings.JIRA_PASSWORD))
+        issue = jira.create_issue(project=settings.JIRA_PROJECT, summary=str(summary), description='Look into this one', issuetype={'name': 'Bug'})
+        extension, created = IncidentExtension.objects.get_or_create(incident=incident, key='jira_id')
+        extension.value = issue.key
+        extension.save()
         return incident
 
 
