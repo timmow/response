@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 
 from django.conf import settings
-from core.models.incident import Incident
+from core.models.incident import Incident, IncidentExtension
 
 from slack.settings import INCIDENT_EDIT_DIALOG
 from slack.dialog_builder import Dialog, Text, TextArea, SelectWithOptions, SelectFromUsers
@@ -11,11 +11,20 @@ from slack.slack_utils import invite_user_to_channel, get_slack_token_owner, lea
 
 from slack.decorators import action_handler, ActionContext
 
+from jira import JIRA
+
 import logging
 logger = logging.getLogger(__name__)
 
 @action_handler(HeadlinePost.CLOSE_INCIDENT_BUTTON)
 def handle_close_incident(ac: ActionContext):
+    try:
+        jira_ticket = IncidentExtension.objects.get(incident=ac.incident).value
+        jira = JIRA(settings.JIRA_SITE, basic_auth=(settings.JIRA_USER, settings.JIRA_PASSWORD))
+        issue = jira.issue(jira_ticket)
+        jira.transition_issue(issue, transition='Closed')
+    except IncidentExtension.DoesNotExist as e:
+        logger.error("Could not delete jira ticket", e)
     ac.incident.end_time = datetime.now()
     ac.incident.save()
 

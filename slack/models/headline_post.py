@@ -76,7 +76,7 @@ class HeadlinePost(models.Model):
             msg.add_block(Section(text=Text("Need something else?")))
             actions = Actions(block_id="actions")
 
-            if not self.comms_channel:
+            if not self.comms_channel and jira_ticket:
                 actions.add_element(Button(":speaking_head_in_silhouette: Create Comms Channel", self.CREATE_COMMS_CHANNEL_BUTTON, value=self.incident.pk))
 
             if settings.PAGERDUTY_ENABLED:
@@ -85,7 +85,8 @@ class HeadlinePost(models.Model):
 
             actions.add_element(Button(":pencil2: Edit", self.EDIT_INCIDENT_BUTTON, value=self.incident.pk))
 
-            actions.add_element(Button(":white_check_mark: Close", self.CLOSE_INCIDENT_BUTTON, value=self.incident.pk))
+            if jira_ticket:
+                actions.add_element(Button(":white_check_mark: Close", self.CLOSE_INCIDENT_BUTTON, value=self.incident.pk))
 
             msg.add_block(actions)
 
