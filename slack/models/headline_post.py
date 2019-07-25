@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from urllib.parse import urljoin
 
-from core.models.incident import Incident
+from core.models.incident import Incident, IncidentExtension
 from slack.models.comms_channel import CommsChannel
 
 from slack.block_kit import *
@@ -11,9 +11,9 @@ from slack.slack_utils import user_reference, channel_reference
 
 
 class HeadlinePostManager(models.Manager):
-    def create_headline_post(self, incident):
+    def create_headline_post(self, incident, jira_ticket=""):
         headline_post = self.create(
-            incident=incident,
+            incident=incident
         )
         headline_post.update_in_slack()
         return headline_post
@@ -30,10 +30,15 @@ class HeadlinePost(models.Model):
     incident = models.ForeignKey(Incident, on_delete=models.CASCADE)
     message_ts = models.CharField(max_length=20, null=True)
     comms_channel = models.OneToOneField(CommsChannel, on_delete=models.DO_NOTHING, null=True)
-
-    def update_in_slack(self):
+    
+    def update_in_slack(self, jira_ticket=""):
         "Creates/updates the slack headline post with the latest incident info"
         msg = Message()
+        if not jira_ticket:
+            try:
+                jira_ticket = IncidentExtension.objects.get(incident=self.incident).value
+            except IncidentExtension.DoesNotExist:
+                pass
 
         # Set the fallback text so notifications look nice
         msg.set_fallback_text(f"{self.incident.report} reported by {user_reference(self.incident.reporter)}")
@@ -43,7 +48,12 @@ class HeadlinePost(models.Model):
         msg.add_block(Section(block_id="reporter", text=Text(f"🙋🏻‍♂️ Reporter: {user_reference(self.incident.reporter.external_id)}")))
         incident_lead_text = user_reference(self.incident.lead.external_id) if self.incident.lead else "-"
         msg.add_block(Section(block_id="lead", text=Text(f"👩‍🚒 Incident Lead: {incident_lead_text}")))
-
+        if jira_ticket:
+            jira_ticket_url =  urljoin(
+                settings.JIRA_SITE,
+                "browse/{}".format(jira_ticket)
+            )
+            msg.add_block(Section(block_id="JIRA", text=Text(f"📄 Jira Ticket: <{jira_ticket_url}|{jira_ticket}>")))
         msg.add_block(Divider())
 
         # Add additional info

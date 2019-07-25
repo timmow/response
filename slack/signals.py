@@ -2,7 +2,7 @@ from django.db.models.signals import post_save
 from django.core.signals import request_finished
 from django.dispatch import receiver
 
-from core.models import Incident
+from core.models import Incident, IncidentExtension
 from slack.models import HeadlinePost
 
 from time import sleep
@@ -26,6 +26,20 @@ def update_headline_after_incident_save(sender, instance, **kwargs):
         headline_post = HeadlinePost.objects.create_headline_post(
             incident=instance
         )
+
+@receiver(post_save, sender=IncidentExtension)
+def update_headline_after_incident_extension_save(sender, instance, **kwargs):
+    """
+    Reflect changes to the jira ticket number in the headline post
+
+    Important: this is called in the synchronous /incident flow so must remain fast (<2 secs)
+
+    """
+    headline_post = HeadlinePost.objects.get(
+        incident=instance.incident_id
+    )
+    headline_post.update_in_slack(jira_ticket=instance.value)
+
 
 
 @receiver(post_save, sender=HeadlinePost)
