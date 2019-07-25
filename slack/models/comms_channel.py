@@ -4,7 +4,7 @@ from django.db import models
 from django.urls import reverse
 from urllib.parse import urljoin
 
-from core.models.incident import Incident
+from core.models.incident import Incident, IncidentExtension
 
 from slack.slack_utils import get_or_create_channel, set_channel_topic, send_message, SlackError, rename_channel
 from slack.block_kit import *
@@ -17,10 +17,15 @@ class CommsChannelManager(models.Manager):
     def create_comms_channel(self, incident):
         "Creates a comms channel in slack, and saves a reference to it in the DB"
         try:
+            name = IncidentExtension.objects.get(incident=incident).value
+        except IncidentExtension.DoesNotExist:
             name = f"inc-{100+incident.pk}"
+            
+        try:
             channel_id = get_or_create_channel(name, auto_unarchive=True)
         except SlackError as e:
             logger.error('Failed to create comms channel {e}')
+            
 
         try:
             doc_url = urljoin(
