@@ -1,8 +1,12 @@
-from core.models import Incident, Action, ExternalUser
+from core.models import Incident, IncidentExtension, Action, ExternalUser
+from django.conf import settings
 from slack.models import CommsChannel
 from slack.decorators import incident_command, get_help
 from slack.slack_utils import reference_to_id, get_user_profile, rename_channel, SlackError, GetOrCreateSlackExternalUser
 from datetime import datetime
+from jira import JIRA
+
+jira = JIRA(settings.JIRA_SITE, basic_auth=(settings.JIRA_USER, settings.JIRA_PASSWORD))
 
 @incident_command(['help'], helptext='Display a list of commands and usage')
 def send_help_text(incident: Incident, user_id: str, message: str):
@@ -11,6 +15,12 @@ def send_help_text(incident: Incident, user_id: str, message: str):
 
 @incident_command(['summary'], helptext='Provide a summary of what\'s going on')
 def update_summary(incident: Incident, user_id: str, message: str):
+    try:
+        jira_ticket = IncidentExtension.objects.get(incident=incident).value
+        issue = jira.issue(jira_ticket)
+        issue.update(description=message)
+    except Exception as e:
+        pass
     incident.summary = message
     incident.save()
     return True, None
@@ -67,6 +77,13 @@ def set_severity(incident: Incident, user_id: str, message: str):
 
 @incident_command(['close'], helptext='Close this incident.')
 def close_incident(incident: Incident, user_id: str, message: str):
+    try:
+        jira_ticket = IncidentExtension.objects.get(incident=incident).value
+        issue = jira.issue(jira_ticket)
+        jira.transition_issue(issue, transition='Closed')
+    except:
+        pass
+
     comms_channel = CommsChannel.objects.get(incident=incident)
 
     if incident.is_closed():
